@@ -1,0 +1,78 @@
+version: "3"
+services:
+  app_inosoft:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app_inosoft
+    restart: unless-stopped
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./docker/php/app.ini:/usr/local/etc/php/conf.d/app.ini
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+      - ./docker/php/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      - ./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+    networks:
+      - dev
+
+  #Nginx Service
+  web:
+    image: nginx:alpine
+    container_name: web
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8111:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - dev
+
+  db-inosoft:
+    image: mongo:4.2.24-bionic
+    container_name: db-inosoft
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "127.0.0.1:27018:27017"
+    volumes:
+      - mongodbino:/var/lib/mysql
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    networks:
+      - dev
+
+
+  redisserver:
+    image: redis:6.2.5-alpine
+    container_name: redis-inosoft
+    # restart: unless-stopped
+    restart: always
+    environment:
+      REDIS_PASSWORD: p4ssw0rd
+    command: redis-server --requirepass p4ssw0rd
+    volumes:
+      - redisserverdata:/data
+    tty: true
+    ports:
+      - 127.0.0.1:6311:6379
+    networks:
+      - dev
+
+
+
+networks:
+  dev:
+
+volumes:
+  redisserverdata:
+    driver: local
+  mongodbino:
+    driver: local
