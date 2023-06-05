@@ -32,15 +32,6 @@ class LoginRequest extends FormRequest
                 'required',
                 'max:255'
             ],
-            'password_confirmation' => [
-                'required',
-                'max:255',
-                'confirmed'
-            ],
-            'name' => [
-                'required',
-                'max:255'
-            ]
         ];
     }
 }
