@@ -19,4 +19,19 @@ class UserRepository implements UserRepositoryInterface
     {
         return User::create($user);
     }
+
+    public function createToken(User $user) : string
+    {
+        return $user->createToken('auth_token')->plainTextToken;
+    }
+
+    public function logout()
+    {
+        auth()->user()->tokens()->delete();
+    }
+
+    public function profile()
+    {
+        auth()->user();
+    }
 }

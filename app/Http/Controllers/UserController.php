@@ -47,7 +47,7 @@ class UserController extends Controller
         $data["password"] = bcrypt($data['password']);
         $user = $this->userRepository->create($data);
 
-        $user["token"] = $user->createToken('auth_token')->plainTextToken;
+        $user["token"] = $this->userRepository->createToken($user);
 
         return new UserResource($user);
     }
@@ -86,7 +86,7 @@ class UserController extends Controller
             return ['message' => "Login Failed"];            
         }
 
-        $user["token"] = $user->createToken('auth_token')->plainTextToken;
+        $user["token"] = $this->userRepository->createToken($user);
 
         return new UserResource($user);
     }
@@ -104,7 +104,7 @@ class UserController extends Controller
      */
     public function profile()
     {
-        $user = auth()->user();
+        $user = $this->userRepository->profile();
 
         return new UserResource($user);
     }
@@ -122,7 +122,7 @@ class UserController extends Controller
      */
     public function logout()
     {
-        auth()->user()->tokens()->delete();
+        $this->userRepository->logout();
 
         return ['success' => true];
     }
