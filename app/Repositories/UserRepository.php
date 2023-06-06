@@ -2,22 +2,28 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 
-class UserRepository implements UserRepositoryInterface
+class UserRepository
 {
+    protected $user;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
     public function filter(array $filter)
     {
-        return User::
-        when(has_key('email', $filter), function ($query) use ($filter) {
+        return $this->user
+        ->when(has_key('email', $filter), function ($query) use ($filter) {
             return $query->where('email', $filter['email']);
         });
     }
 
     public function create(array $user)
     {
-        return User::create($user);
+        return $this->user->create($user);
     }
 
     public function createToken(User $user) : string
@@ -27,11 +33,11 @@ class UserRepository implements UserRepositoryInterface
 
     public function logout()
     {
-        auth()->user()->tokens()->delete();
+        return auth()->user()->tokens()->delete();
     }
 
     public function profile()
     {
-        auth()->user();
+        return auth()->user();
     }
 }

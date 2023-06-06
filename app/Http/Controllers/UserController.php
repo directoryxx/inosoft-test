@@ -5,17 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
-use App\Interfaces\UserRepositoryInterface;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    private $userRepository;
+    protected $userService;
 
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserService $userService)
     {
-        $this->userRepository = $userRepository;
+        $this->userService = $userService;
     }
 
     /**
@@ -45,9 +45,9 @@ class UserController extends Controller
         $data = $request->validated();
 
         $data["password"] = bcrypt($data['password']);
-        $user = $this->userRepository->create($data);
+        $user = $this->userService->createUser($data);
 
-        $user["token"] = $this->userRepository->createToken($user);
+        $user["token"] = $this->userService->createToken($user);
 
         return new UserResource($user);
     }
@@ -76,7 +76,7 @@ class UserController extends Controller
     {
         $data = $request->validated();
         
-        $user = $this->userRepository->filter($data)->first();
+        $user = $this->userService->checkEmail($data["email"]);
 
         if (! $user){
             return ['message' => "Login Failed"];
@@ -86,7 +86,7 @@ class UserController extends Controller
             return ['message' => "Login Failed"];            
         }
 
-        $user["token"] = $this->userRepository->createToken($user);
+        $user["token"] = $this->userService->createToken($user);
 
         return new UserResource($user);
     }
@@ -104,7 +104,7 @@ class UserController extends Controller
      */
     public function profile()
     {
-        $user = $this->userRepository->profile();
+        $user = $this->userService->profile();
 
         return new UserResource($user);
     }
@@ -122,7 +122,7 @@ class UserController extends Controller
      */
     public function logout()
     {
-        $this->userRepository->logout();
+        $this->userService->logout();
 
         return ['success' => true];
     }
