@@ -13,13 +13,13 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/v1/register": {
+        "/api/v1/auth/register": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "description": "Register Endpoint",
-                "operationId": "e3d7c33191c03363f0fe6765dde1c762",
+                "operationId": "526ace942a6d422b3682a486dfc18d73",
                 "requestBody": {
                     "description": "Pass user credentials",
                     "required": true,
@@ -60,6 +60,85 @@
                         "description": "successful operation"
                     }
                 }
+            }
+        },
+        "/api/v1/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "description": "Login Endpoint",
+                "operationId": "d333c91f7961ca3b3afc478978d1be78",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "PassWord12345"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/profile": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "description": "profile Endpoint",
+                "operationId": "e90ee6e0140f6e4744f9c7f90d6dff09",
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/logout": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "description": "logout Endpoint",
+                "operationId": "2e501a116aebee6cc5d646f9672ec1c9",
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
             }
         }
     }

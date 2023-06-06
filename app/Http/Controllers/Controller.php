@@ -18,7 +18,7 @@ use Illuminate\Routing\Controller as BaseController;
  *     @OA\License(
  *         name="Apache 2.0",
  *         url="https://www.apache.org/licenses/LICENSE-2.0.html"
- *     )
+ *     ),
  * )
  */
 class Controller extends BaseController

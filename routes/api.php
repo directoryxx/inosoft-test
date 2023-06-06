@@ -23,10 +23,13 @@ Route::group(['prefix' => 'v1'], function(){
     /**
      * Auth
      */
-    Route::post('login', [UserController::class, 'login']);
-    Route::post('register', [UserController::class, 'register']);
- 
-    Route::get('/user/profile', function () {
-        // Uses first & second middleware...
+    Route::group(['prefix' => 'auth'], function(){
+        Route::post('login', [UserController::class, 'login'])->name('login');
+        Route::post('register', [UserController::class, 'register']);
+    
+        Route::middleware('auth:sanctum')->group( function () {
+            Route::get('profile', [UserController::class, 'profile']);
+            Route::get('logout', [UserController::class, 'logout']);
+        });
     });
 });
