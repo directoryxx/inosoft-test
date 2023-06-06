@@ -14,8 +14,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $connection = 'mongodb';
     protected $collection = 'users';
+
+    protected $guarded = ['_id'];
 
     /**
      * The attributes that are mass assignable.

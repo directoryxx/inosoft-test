@@ -210,8 +210,8 @@ return [
                         'write'
                     ],
 
-                    'passport' => []
                     */
+                    'sanctum' => []
                 ],
             ],
         ],

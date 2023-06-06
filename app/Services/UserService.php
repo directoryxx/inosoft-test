@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 namespace App\Services;
 
-use App\Repositories\PermitRepository;
 use App\Repositories\UserRepository;
 
 class UserService {
@@ -16,8 +16,8 @@ class UserService {
         return $this->userRepository->createToken($user);
     }
 
-    public function checkEmail($email) {
-        return $this->userRepository->filter(["email" => $email])->first();
+    public function checkEmail(string $email) : \Jenssegers\Mongodb\Eloquent\Builder {
+        return $this->userRepository->filter(["email" => $email]);
     }
 
     public function createUser($user) {

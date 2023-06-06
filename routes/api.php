@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VehicleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,5 +33,11 @@ Route::group(['prefix' => 'v1'], function(){
             Route::get('profile', [UserController::class, 'profile']);
             Route::get('logout', [UserController::class, 'logout']);
         });
+    });
+
+    Route::middleware('auth:sanctum')->group( function () {
+        Route::resource('vehicles', VehicleController::class)->only('index', 'update', 'destroy', 'show', 'store');
+        Route::post('sales', [SalesController::class, 'store']);
+        Route::get('sales/report', [SalesController::class, 'report']);
     });
 });

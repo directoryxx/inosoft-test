@@ -13,6 +13,69 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/v1/sales/report": {
+            "get": {
+                "tags": [
+                    "Sales"
+                ],
+                "description": "Report Sales Endpoint",
+                "operationId": "0109b551eb6084faee49b22313dc55c0",
+                "parameters": [
+                    {
+                        "name": "vehicle_type",
+                        "in": "query",
+                        "description": "Vehicle Type. Ex: motorcycle|car",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/api/v1/sales": {
+            "post": {
+                "tags": [
+                    "Sales"
+                ],
+                "description": "Sales Create Endpoint",
+                "operationId": "51817db78f9cc2d36dcef3a5346c12ef",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "vehicle_id",
+                                    "quantity"
+                                ],
+                                "properties": {
+                                    "vehicle_id": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "blue"
+                                    },
+                                    "quantity": {
+                                        "type": "integer",
+                                        "format": "test",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
         "/api/v1/auth/register": {
             "post": {
                 "tags": [
@@ -130,6 +193,151 @@
                     }
                 }
             }
+        },
+        "/api/v1/vehicles": {
+            "get": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "description": "Vehicle Index Endpoint",
+                "operationId": "ec407c20094a18b143c36165ac4faf7d",
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "description": "Vehicle Create Endpoint",
+                "operationId": "30aac71ccd53f75477209f9b585f03a5",
+                "requestBody": {
+                    "description": "Example: https://pastebin.com/Yd5aS7yy",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/api/v1/vehicles/{id}": {
+            "get": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "description": "Vehicle Get Endpoint",
+                "operationId": "59a5fab57558be22007c4dfd5e7614bd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of vehicle",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "description": "Vehicle Update Endpoint",
+                "operationId": "f0065a4ff205273c1200e575db5f4785",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of vehicle",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Example: https://pastebin.com/Yd5aS7yy",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "color",
+                                    "year",
+                                    "price"
+                                ],
+                                "properties": {
+                                    "color": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "blue"
+                                    },
+                                    "year": {
+                                        "type": "string",
+                                        "format": "test",
+                                        "example": "1000"
+                                    },
+                                    "price": {
+                                        "type": "string",
+                                        "format": "test",
+                                        "example": "1000"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "description": "Vehicle Delete Endpoint",
+                "operationId": "97b7203f4766cb41afb4ae504fd56cdd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of vehicle",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -141,5 +349,10 @@
                 "in": "header"
             }
         }
-    }
+    },
+    "security": [
+        {
+            "sanctum": []
+        }
+    ]
 }

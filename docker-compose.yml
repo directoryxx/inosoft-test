@@ -10,6 +10,8 @@ services:
       SERVICE_NAME: app
       SERVICE_TAGS: dev
     working_dir: /var/www
+    ports:
+      - "8001:8001"
     volumes:
       - ./:/var/www
       - ./docker/php/app.ini:/usr/local/etc/php/conf.d/app.ini

@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
 use App\Models\User;
+use Jenssegers\Mongodb\Eloquent\Builder;
 
 class UserRepository
 {
@@ -13,7 +16,7 @@ class UserRepository
         $this->user = $user;
     }
 
-    public function filter(array $filter)
+    public function filter(array $filter) : Builder
     {
         return $this->user
         ->when(has_key('email', $filter), function ($query) use ($filter) {
@@ -21,7 +24,7 @@ class UserRepository
         });
     }
 
-    public function create(array $user)
+    public function create(array $user) : User
     {
         return $this->user->create($user);
     }
@@ -33,7 +36,7 @@ class UserRepository
 
     public function logout()
     {
-        return auth()->user()->tokens()->delete();
+       auth()->user()->tokens()->delete();
     }
 
     public function profile()

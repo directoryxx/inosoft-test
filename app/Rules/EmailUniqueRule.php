@@ -2,21 +2,13 @@
 
 namespace App\Rules;
 
+use App\Models\User;
 use App\Repositories\UserRepository;
+use App\Services\UserService;
 use Illuminate\Contracts\Validation\Rule;
 
 class EmailUniqueRule implements Rule
 {
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Determine if the validation rule passes.
      *
@@ -26,7 +18,7 @@ class EmailUniqueRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        $exists = (new UserRepository)->filter(['email' => $value])->exists();
+        $exists = User::where('email', $value)->exists();
 
         return ! $exists;
     }

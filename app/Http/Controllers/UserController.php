@@ -76,7 +76,7 @@ class UserController extends Controller
     {
         $data = $request->validated();
         
-        $user = $this->userService->checkEmail($data["email"]);
+        $user = $this->userService->checkEmail($data["email"])->first();
 
         if (! $user){
             return ['message' => "Login Failed"];
