@@ -10,8 +10,9 @@ If you faced it try to run it from powershell.
 3. Run Command "docker-compose up -d"
 4. Run Command "docker exec -it app_inosoft /bin/bash"
 5. Run Command "cp .env.example .env"
-5. Run Command "php artisan migrate --seed"
-6. Access through http://127.0.0.1:8111
+6. Run Command "composer install"
+7. Run Command "php artisan migrate --seed"
+8. Access through http://127.0.0.1:8111
 
 ## Docs
 
@@ -25,3 +26,16 @@ http://127.0.0.1:8111/docs
 3. Run command "cd reports2"
 4. Run command "php -S 0.0.0.0:8001"
 5. Access through http://127.0.0.1:8001
+
+## Default Credential
+
+### MongoDB
+
+Username: root
+Password: rootpassword
+Host: 127.0.0.1
+Port: 27018
+
+### Login
+Email: angga@email.com
+Password: password
