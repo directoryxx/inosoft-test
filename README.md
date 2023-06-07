@@ -27,7 +27,7 @@ http://127.0.0.1:8111/docs
 4. Run command "php -S 0.0.0.0:8001"
 5. Access through http://127.0.0.1:8001
 
-## Default Credential
+## Default Credentials
 
 ### MongoDB
 
