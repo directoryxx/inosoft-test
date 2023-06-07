@@ -1,4 +1,6 @@
-This App tested on Linux & Mac Maybe it will face some issues when trying at Windows. 
+# Inosoft Test
+
+This App tested on Linux & Mac Maybe it will face some issues when trying it at Windows. 
 If you faced it try to run it from powershell.
 
 ## Installation
