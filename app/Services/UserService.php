@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Repositories\UserRepository;
+use Jenssegers\Mongodb\Eloquent\Builder;
 
 class UserService {
     public $userRepository;
@@ -16,7 +17,7 @@ class UserService {
         return $this->userRepository->createToken($user);
     }
 
-    public function checkEmail(string $email) : \Jenssegers\Mongodb\Eloquent\Builder {
+    public function checkEmail(string $email) : Builder {
         return $this->userRepository->filter(["email" => $email]);
     }
 

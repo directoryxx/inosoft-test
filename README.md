@@ -24,4 +24,4 @@ http://127.0.0.1:8111/docs
 2. Run command "docker exec -it app_inosoft /bin/bash"
 3. Run command "cd reports2"
 4. Run command "php -S 0.0.0.0:8001"
-5. Access through http://127.0.0.1:8111
+5. Access through http://127.0.0.1:8001
